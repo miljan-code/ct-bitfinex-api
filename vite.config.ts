@@ -10,4 +10,17 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.bitfinex.com/v1/symbols',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+      '/ws': {
+        target: 'wss://api-pub.bitfinex.com/ws/2',
+        ws: true,
+      },
+    },
+  },
 });
