@@ -16,12 +16,17 @@ export const Header = () => {
         >
           Home
         </Link>
-        <Link
-          to="/favorites"
-          className={cn(buttonVariants({ variant: 'ghost' }), 'cursor-pointer')}
-        >
-          Favorites
-        </Link>
+        {isSigned && (
+          <Link
+            to="/favorites"
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'cursor-pointer'
+            )}
+          >
+            Favorites
+          </Link>
+        )}
       </div>
       {!isSigned && <Button onClick={() => setIsSigned(true)}>Login</Button>}
     </div>

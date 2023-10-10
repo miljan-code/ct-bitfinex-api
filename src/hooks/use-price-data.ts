@@ -18,7 +18,7 @@ export const usePriceData = () => {
 
   useEffect(() => {
     const fetchSymbols = async () => {
-      const res = await fetch('/api');
+      const res = await fetch('/api/v1/symbols');
       const symbols = (await res.json()) as string[];
 
       const formatedSymbols = symbols

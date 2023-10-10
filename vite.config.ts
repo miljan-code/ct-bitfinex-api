@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api.bitfinex.com/v1/symbols',
+        target: 'https://api.bitfinex.com/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },

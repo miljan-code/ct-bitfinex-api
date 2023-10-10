@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { usePriceData } from '@/hooks/use-price-data';
 import {
   Table,
@@ -8,7 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const { tickers } = usePriceData();

@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from './root.tsx';
 import { Home } from './components/home.tsx';
 import { Favorites } from './components/favorites.tsx';
+import { Details } from './components/details.tsx';
 import './styles/index.css';
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/favorites',
         element: <Favorites />,
+      },
+      {
+        path: '/pairs/:symbol',
+        element: <Details />,
       },
     ],
   },
