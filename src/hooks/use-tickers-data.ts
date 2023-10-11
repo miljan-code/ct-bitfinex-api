@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { initSocket } from '@/lib/socket';
+import { getPair } from '@/lib/queries';
 
 export interface Ticker {
   tickerName: string;
@@ -16,6 +17,8 @@ export interface Ticker {
 export const useTickersData = () => {
   const [tickers, setTickers] = useState<Ticker[]>([]);
 
+  const client = useQueryClient();
+
   const { data: symbols } = useQuery({
     queryKey: ['getSymbols'],
     queryFn: async () => {
@@ -27,6 +30,11 @@ export const useTickersData = () => {
         .slice(0, 5)
         .map(symbol => `t${symbol.toUpperCase()}`);
       initSocket({ symbols, setTickers });
+
+      symbols.forEach(symbol => {
+        const key = symbol.slice(1);
+        client.prefetchQuery([key], () => getPair(key));
+      });
     },
   });
 
