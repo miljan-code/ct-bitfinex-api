@@ -1,5 +1,7 @@
-import { usePairData } from '@/hooks/use-pair-data';
-import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useContext } from 'react';
+
+import { AppContext } from '@/context/context-provider';
+import { usePairDetails } from '@/hooks/use-pair-details';
 import {
   Table,
   TableBody,
@@ -12,9 +14,8 @@ import {
 import { Button } from './ui/button';
 
 export const Details = () => {
-  const [isSigned] = useLocalStorage('CT__isSigned', false);
-  const [favorites, setFavorites] = useLocalStorage<string[]>('CT__favs', []);
-  const { pair } = usePairData();
+  const { isSigned, favorites, setFavorites } = useContext(AppContext);
+  const pair = usePairDetails();
 
   const addToFavoritesHandler = () => {
     setFavorites([...favorites, pair.tickerName]);

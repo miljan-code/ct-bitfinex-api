@@ -1,7 +1,7 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useLocalStorage } from '@/hooks/use-local-storage';
-import { usePriceData } from '@/hooks/use-price-data';
+import { AppContext } from '@/context/context-provider';
 import {
   Table,
   TableBody,
@@ -13,8 +13,7 @@ import {
 } from '@/components/ui/table';
 
 export const Favorites = () => {
-  const [favorites] = useLocalStorage<string[]>('CT__favs', []);
-  const { tickers } = usePriceData();
+  const { tickers, favorites } = useContext(AppContext);
 
   const favoritePairs = tickers.filter(ticker =>
     favorites.includes(ticker.tickerName)

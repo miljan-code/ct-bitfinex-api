@@ -1,6 +1,7 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { usePriceData } from '@/hooks/use-price-data';
+import { AppContext } from '@/context/context-provider';
 import {
   Table,
   TableBody,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/table';
 
 export const Home = () => {
-  const { tickers } = usePriceData();
+  const { tickers } = useContext(AppContext);
 
   return (
     <Table className="mt-6">

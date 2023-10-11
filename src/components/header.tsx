@@ -1,11 +1,12 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useLocalStorage } from '@/hooks/use-local-storage';
+import { AppContext } from '@/context/context-provider';
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from './ui/button';
 
 export const Header = () => {
-  const [isSigned, setIsSigned] = useLocalStorage('CT__isSigned', false);
+  const { isSigned, setIsSigned } = useContext(AppContext);
 
   return (
     <div className="relative py-3 flex items-center justify-between after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-header-border">

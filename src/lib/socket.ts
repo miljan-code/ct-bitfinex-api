@@ -1,4 +1,4 @@
-import { Ticker } from '@/hooks/use-price-data';
+import { type Ticker } from '@/hooks/use-tickers-data';
 
 interface InitSocketOpts {
   symbols: string[];
@@ -20,6 +20,8 @@ export const initSocket = ({ symbols, setTickers }: InitSocketOpts) => {
     });
   };
 
+  const chanIds: string[] = [];
+
   socket.onmessage = event => {
     const data = JSON.parse(event.data);
     if (data.event && data.event === 'subscribed') {
@@ -29,11 +31,9 @@ export const initSocket = ({ symbols, setTickers }: InitSocketOpts) => {
         );
 
         if (tickerAdded) return prevTickers;
-        else
-          return [
-            ...prevTickers,
-            { tickerName: data.pair, chanId: data.chanId },
-          ];
+
+        chanIds.push(chanId);
+        return [...prevTickers, { tickerName: data.pair, chanId: data.chanId }];
       });
     }
     const chanId = data[0];
@@ -59,6 +59,20 @@ export const initSocket = ({ symbols, setTickers }: InitSocketOpts) => {
       return tickers;
     });
   };
+
+  const unsubscribe = () => {
+    chanIds.forEach(chanId => {
+      const event = JSON.stringify({
+        event: 'unsubscribe',
+        chanId,
+      });
+
+      socket.send(event);
+    });
+  };
+
+  socket.onclose = () => unsubscribe();
+  socket.onerror = () => unsubscribe();
 };
 
 function transformData(chanId: number, arr: number[]) {
