@@ -39,8 +39,8 @@ export const Home = () => {
             <TableCell className="text-right">{ticker.change}</TableCell>
             <TableCell className="text-right">
               {ticker.changeRelative! < 0
-                ? ticker.changeRelative?.toFixed(3)
-                : `+${ticker.changeRelative?.toFixed(3)}`}
+                ? ticker.changeRelative?.toFixed(2)
+                : `+${ticker.changeRelative?.toFixed(2)}`}
               %
             </TableCell>
             <TableCell className="text-right">{ticker.high}</TableCell>
